@@ -73,7 +73,7 @@ supabase secrets set SUPABASE_JWT_SECRET=your-project-jwt-secret
 
 ---
 
-## 🔒 Catatan Keamanan
+## Catatan Keamanan
 - Password admin disimpan secara aman menggunakan **bcrypt hash** di dalam tabel `admin`.
 - Tabel `admin` **tidak memiliki akses baca publik** (No public read policy).
 - Fungsi CRUD (buat, baca, perbarui, hapus) kegiatan dan layanan hanya dapat dilakukan jika request dilampiri **JWT custom** dengan klaim `is_admin=true`.
@@ -81,7 +81,7 @@ supabase secrets set SUPABASE_JWT_SECRET=your-project-jwt-secret
 
 ---
 
-## 📁 Struktur Folder Utama
+## Struktur Folder Utama
 
 ```text
 src/
