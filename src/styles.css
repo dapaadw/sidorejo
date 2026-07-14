@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Nunito:wght@400;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color: #243d1b;
+  background: #fff8e9;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background:
+    radial-gradient(circle at top left, rgba(167, 199, 121, 0.26), transparent 32rem),
+    linear-gradient(180deg, #fff8e9 0%, #f7ebd1 45%, #fff8e9 100%);
+}
+
+.village-pattern {
+  background-image:
+    linear-gradient(rgba(36, 61, 27, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(36, 61, 27, 0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
