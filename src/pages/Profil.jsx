@@ -1,17 +1,9 @@
-import { Landmark, Leaf, Mountain, Store, Target, UsersRound } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Landmark, Leaf, Mountain, Store, Target, UsersRound, BarChart3 } from 'lucide-react';
 import SectionHeading from '../components/SectionHeading.jsx';
-
-const perangkat = [
-  'Kepala Desa',
-  'Sekretaris Desa',
-  'Kaur Tata Usaha dan Umum',
-  'Kaur Keuangan',
-  'Kaur Perencanaan',
-  'Kasi Pemerintahan',
-  'Kasi Kesejahteraan',
-  'Kasi Pelayanan',
-  'Kepala Dusun',
-];
+import VillageStats from '../components/VillageStats.jsx';
+import { publicSupabase } from '../lib/supabase.js';
+import { fallbackProfil } from '../lib/fallbackData.js';
 
 const potensi = [
   { icon: Leaf, title: 'Pertanian', desc: 'Lahan sawah, kebun, dan komoditas pangan menjadi penopang ekonomi warga.' },
@@ -20,6 +12,28 @@ const potensi = [
 ];
 
 export default function Profil() {
+  const [profile, setProfile] = useState(fallbackProfil);
+
+  useEffect(() => {
+    async function fetchProfile() {
+      if (!publicSupabase) return;
+      try {
+        const { data, error } = await publicSupabase
+          .from('profil_desa')
+          .select('*')
+          .eq('id', 'default')
+          .single();
+        if (error) throw error;
+        if (data) {
+          setProfile(data);
+        }
+      } catch (err) {
+        console.error('Gagal memuat profil desa dari Supabase:', err.message);
+      }
+    }
+    fetchProfile();
+  }, []);
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <SectionHeading eyebrow="Profil Desa" title="Mengenal Desa Sidorejo">
@@ -32,11 +46,8 @@ export default function Profil() {
           <h3 className="mb-4 flex items-center gap-2 font-display text-2xl font-black">
             <Landmark className="text-clay" /> Sejarah Singkat
           </h3>
-          <p className="leading-8 text-leaf-700">
-            Desa Sidorejo tumbuh dari kehidupan masyarakat agraris yang menjaga hubungan
-            erat dengan tanah, air, dan lingkungan sekitar. Semangat guyub rukun menjadi
-            dasar dalam membangun desa, mulai dari kegiatan sosial, pertanian, hingga
-            pelayanan publik. Data sejarah rinci dapat diperbarui oleh admin sesuai arsip desa.
+          <p className="leading-8 text-leaf-700 whitespace-pre-line">
+            {profile.sejarah}
           </p>
         </section>
 
@@ -46,30 +57,43 @@ export default function Profil() {
           </h3>
           <p className="font-bold">Visi</p>
           <p className="mt-1 leading-7 text-leaf-50">
-            Terwujudnya Desa Sidorejo yang maju, mandiri, sejahtera, dan berbudaya.
+            {profile.visi}
           </p>
           <p className="mt-5 font-bold">Misi</p>
-          <ul className="mt-2 space-y-2 text-sm leading-7 text-leaf-50">
-            <li>Meningkatkan kualitas pelayanan administrasi desa.</li>
-            <li>Menguatkan pertanian, UMKM, dan ekonomi warga.</li>
-            <li>Menjaga lingkungan desa yang bersih, aman, dan lestari.</li>
+          <ul className="mt-2 space-y-2 text-sm leading-7 text-leaf-50 list-disc list-inside">
+            {Array.isArray(profile.misi) ? (
+              profile.misi.map((m, idx) => <li key={idx}>{m}</li>)
+            ) : (
+              <li>{profile.misi}</li>
+            )}
           </ul>
         </section>
       </div>
 
+      {/* Demografi & Bagan Penduduk */}
       <section className="mt-12 animate-fade-in-up-delay-1 opacity-0">
+        <h3 className="mb-6 flex items-center gap-2 font-display text-2xl font-black">
+          <BarChart3 className="text-clay" /> Kependudukan & Demografi Desa
+        </h3>
+        <VillageStats stats={profile} />
+      </section>
+
+      {/* Struktur Perangkat */}
+      <section className="mt-12 animate-fade-in-up-delay-2 opacity-0">
         <h3 className="mb-5 flex items-center gap-2 font-display text-2xl font-black">
           <UsersRound className="text-clay" /> Struktur Perangkat Desa
         </h3>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {perangkat.map((item) => (
-            <div key={item} className="rounded-[8px] border border-earth-100 bg-white/78 p-4 font-bold shadow-soft">
-              {item}
+          {profile.perangkat?.map((item) => (
+            <div key={item.jabatan} className="rounded-[8px] border border-earth-100 bg-white/78 p-4 shadow-soft">
+              <p className="text-xs font-bold text-clay uppercase tracking-wider">{item.jabatan}</p>
+              <p className="text-lg font-black text-leaf-900 mt-1">{item.nama || '-'}</p>
             </div>
           ))}
         </div>
       </section>
 
+      {/* Potensi Desa */}
       <section className="mt-12 animate-fade-in-up-delay-2 opacity-0">
         <h3 className="mb-5 font-display text-2xl font-black">Potensi Desa</h3>
         <div className="grid gap-6 md:grid-cols-3">
@@ -87,3 +111,4 @@ export default function Profil() {
     </div>
   );
 }
+

@@ -24,15 +24,17 @@ export default function Footer() {
           <h3 className="mb-3 font-extrabold">Kontak Desa</h3>
           <div className="space-y-3 text-sm text-leaf-100">
             <p className="flex gap-2"><MapPin size={18} /> Kantor Desa Sidorejo, Doko, Blitar</p>
-            <p className="flex gap-2"><Phone size={18} /> 0342-000000</p>
-            <p className="flex gap-2"><Mail size={18} /> desa.sidorejo@example.com</p>
+            <p className="flex gap-2"><Phone size={18} /> 0823-3052-0585</p>
+            <p className="flex gap-2"><Mail size={18} /> desa.sidorejo8@gmail.com</p>
           </div>
         </div>
         <div>
           <h3 className="mb-3 font-extrabold">Jam Operasional</h3>
           <p className="text-sm leading-7 text-leaf-100">
-            Senin - Jumat<br />
-            08.00 - 15.00 WIB<br />
+            Senin - Kamis<br />
+            08.00 - 13.00 WIB<br />
+            Jumat<br />
+            08.00 - 11.00 WIB<br />
             Sabtu, Minggu, dan hari libur nasional tutup.
           </p>
         </div>

@@ -63,3 +63,30 @@ export const fallbackLayanan = [
     alur: 'Ajukan berkas, petugas memeriksa data usaha, surat diterbitkan oleh desa.',
   },
 ];
+
+export const fallbackProfil = {
+  visi: 'Terwujudnya Desa Sidorejo yang maju, mandiri, sejahtera, dan berbudaya.',
+  misi: [
+    'Meningkatkan kualitas pelayanan administrasi desa.',
+    'Menguatkan pertanian, UMKM, dan ekonomi warga.',
+    'Menjaga lingkungan desa yang bersih, aman, dan lestari.'
+  ],
+  sejarah: 'Desa Sidorejo tumbuh dari kehidupan masyarakat agraris yang menjaga hubungan erat dengan tanah, air, dan lingkungan sekitar. Semangat guyub rukun menjadi dasar dalam membangun desa, mulai dari kegiatan sosial, pertanian, hingga pelayanan publik.',
+  kk: 1250,
+  laki_laki: 2450,
+  perempuan: 2510,
+  bekerja: 3200,
+  menganggur: 1760,
+  perangkat: [
+    { jabatan: 'Kepala Desa', nama: 'Sutrisno' },
+    { jabatan: 'Sekretaris Desa', nama: 'Wahyudi' },
+    { jabatan: 'Kaur Tata Usaha dan Umum', nama: 'Dwi Astuti' },
+    { jabatan: 'Kaur Keuangan', nama: 'Rina Wati' },
+    { jabatan: 'Kaur Perencanaan', nama: 'Budi Santoso' },
+    { jabatan: 'Kasi Pemerintahan', nama: 'Heri Prasetyo' },
+    { jabatan: 'Kasi Kesejahteraan', nama: 'Joko Susilo' },
+    { jabatan: 'Kasi Pelayanan', nama: 'Siti Aminah' },
+    { jabatan: 'Kepala Dusun', nama: 'Mulyono' }
+  ]
+};
+
